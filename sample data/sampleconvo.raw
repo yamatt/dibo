@@ -1,0 +1,64 @@
+:hybrid7.debian.local NOTICE AUTH :*** Looking up your hostname...
+:hybrid7.debian.local NOTICE AUTH :*** Checking Ident
+:hybrid7.debian.local NOTICE AUTH :*** No Ident response
+USER :hybrid7.debian.local NOTICE AUTH :*** Couldn't look up your hostname
+matt matt matt matt
+NICK matt
+:hybrid7.debian.local NOTICE matt :*** Spoofing your IP. congrats.
+:hybrid7.debian.local NOTICE matt :*** You are exempt from K/D/G lines. congrats.
+:hybrid7.debian.local NOTICE matt :*** You are exempt from user limits. congrats.
+:hybrid7.debian.local 001 matt :Welcome to the debian Internet Relay Chat Network matt
+:hybrid7.debian.local 002 matt :Your host is hybrid7.debian.local[127.0.0.1/6667], running version hybrid-7.2.2.dfsg.2-6
+:hybrid7.debian.local 003 matt :This server was created Feb  8 2010 at 21:14:28
+:hybrid7.debian.local 004 matt hybrid7.debian.local hybrid-7.2.2.dfsg.2-6 DGabcdfgiklnorsuwxyz biklmnopstveIh bkloveIh
+:hybrid7.debian.local 005 matt CALLERID CASEMAPPING=rfc1459 DEAF=D KICKLEN=160 MODES=4 NICKLEN=15 PREFIX=(ohv)@%+ STATUSMSG=@%+ TOPICLEN=350 NETWORK=debian MAXLIST=beI:25 MAXTARGETS=4 CHANTYPES=#& :are supported by this server
+:hybrid7.debian.local 005 matt CHANLIMIT=#&:15 CHANNELLEN=50 CHANMODES=eIb,k,l,imnpst ELIST=CMNTU SAFELIST KNOCK AWAYLEN=160 EXCEPTS=e INVEX=I :are supported by this server
+:hybrid7.debian.local 251 matt :There are 0 users and 2 invisible on 1 servers
+:hybrid7.debian.local 254 matt 1 :channels formed
+:hybrid7.debian.local 255 matt :I have 2 clients and 0 servers
+:hybrid7.debian.local 265 matt :Current local users: 2  Max: 2
+:hybrid7.debian.local 266 matt :Current global users: 2  Max: 2
+:hybrid7.debian.local 250 matt :Highest connection count: 2 (2 clients) (3 connections received)
+:hybrid7.debian.local 375 matt :- hybrid7.debian.local Message of the Day - 
+:hybrid7.debian.local 372 matt :-         _,met$$$$$gg.       ircd-hybrid 7.2.2
+:hybrid7.debian.local 372 matt :-      ,g$$$$$$$$$$$$$$$P.    -----------------
+:hybrid7.debian.local 372 matt :-    ,g$$P""       """Y$$.".  
+:hybrid7.debian.local 372 matt :-   ,$$P'              `$$$.  If you are seeing this, you have
+:hybrid7.debian.local 372 matt :- ',$$P       ,ggs.     `$$b: installed the ircd-hybrid package and
+:hybrid7.debian.local 372 matt :- `d$$'     ,$P"'   .    $$$  you are now connected to your new IRC
+:hybrid7.debian.local 372 matt :-  $$P      d$'     ,    $$P  server -- congratulations.
+:hybrid7.debian.local 372 matt :-  $$:      $$.   -    ,d$$'  
+:hybrid7.debian.local 372 matt :-  $$;      Y$b._   _,d$P'    Since you have just installed the
+:hybrid7.debian.local 372 matt :-  Y$$.    `.`"Y$$$$P"'       package, there are some things you
+:hybrid7.debian.local 372 matt :-  `$$b      "-.__            should do before going any further:
+:hybrid7.debian.local 372 matt :-   `Y$$b                     
+:hybrid7.debian.local 372 matt :-    `Y$$.                    1. Edit /etc/ircd-hybrid/ircd.conf to
+:hybrid7.debian.local 372 matt :-      `$$b.                  suit your needs. Beware some options have
+:hybrid7.debian.local 372 matt :-        `Y$$b.               been removed or moved into other blocks in
+:hybrid7.debian.local 372 matt :-          `"Y$b._            the configuration file since
+:hybrid7.debian.local 372 matt :-             `""""           ircd-hybrid 7.0.3.
+:hybrid7.debian.local 372 matt :- 
+:hybrid7.debian.local 372 matt :-                             2. Edit /etc/ircd-hybrid/ircd.motd (this
+:hybrid7.debian.local 372 matt :-                             MOTD) to suit your needs. You are free
+:hybrid7.debian.local 372 matt :-                             to use this Debian swirl under the
+:hybrid7.debian.local 372 matt :-                             Debian Open Use Logo License. :)
+:hybrid7.debian.local 372 matt :- 
+:hybrid7.debian.local 372 matt :-                             3. Restart the server using invoke-rc.d
+:hybrid7.debian.local 372 matt :-                             ircd-hybrid restart.
+:hybrid7.debian.local 372 matt :- 
+:hybrid7.debian.local 372 matt :-                             -- Joshua Kwan <joshk@triplehelix.org>
+:hybrid7.debian.local 372 matt :-                             -- Aurélien GÉRÔME <ag@roxor.cx>
+:hybrid7.debian.local 376 matt :End of /MOTD command.
+:matt!matt@i.love.debian.org MODE matt :+i
+/j #channel1
+:hybrid7.debian.local 421 matt /j :Unknown command
+join #channel1
+:matt!matt@i.love.debian.org JOIN :#channel1
+:hybrid7.debian.local 353 matt = #channel1 :matt @copperwaitem01
+:hybrid7.debian.local 366 matt #channel1 :End of /NAMES list.
+:copperwaitem01!copperwait@i.love.debian.org PRIVMSG #channel1 :hello
+:copperwaitem01!copperwait@i.love.debian.org NOTICE matt :notice
+:copperwaitem01!copperwait@i.love.debian.org PRIVMSG matt :query
+:copperwaitem01!copperwait@i.love.debian.org PART #channel1 :WeeChat 0.3.0
+:copperwaitem01!copperwait@i.love.debian.org JOIN :#channel1
+PING :hybrid7.debian.local
