@@ -21,6 +21,8 @@ def process(q, msg_obj, rxq):
     if current_nick == "*":
         if attempted_nick == settings.NAME:
             new_nick = settings.NAME_BACKUP_1
+            sleep(NAME_DELAY) 
+            q.put(normal_nick_event)
         elif attempted_nick == settings.NAME_BACKUP_1:
             new_nick = settings.NAME_BACKUP_2
         else:
@@ -28,9 +30,11 @@ def process(q, msg_obj, rxq):
 
     if next_nick:
         nick_event = events.Nick(name=new_nick)
-        q.put(nick_event)
-    sleep(NAME_DELAY) 
-    q.put(normal_nick_event)    #TODO: this causes multiple nick reset attemps for each nick fail. How to prevent?
+        q.put(nick_event)   
+    #TODO: crrent causes multiple nick reset attemps for each nick fail. following fixes it?
+    if not current_nick == "*":
+        sleep(NAME_DELAY) 
+        q.put(normal_nick_event)
     
 def generate_random_nick(base_name,max_length=16):
     max_length = max_length - len(base_name)
