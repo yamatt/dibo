@@ -1,4 +1,5 @@
 import re
+from datetime import datetime
 
 TYPE_UNKNOWN = 1000
 TYPE_CONNECTED = 1001
@@ -18,9 +19,15 @@ TYPE_PONG=4003
 TYPE_USER=4004
 TYPE_NICK=4005
 
+TYPE_ADMIN=9000
+TYPE_ADMIN_BROKER=9100
+TYPE_ADMIN_BROKER_RELOAD=9101
+TYPE_ADMIN_BROKER_FREE_MEMORY=9102
+TYPE_ADMIN_BROKER_KILL_PROCESSES=9103
+
 class BaseEvent(object):
-    message_match = re.compile(r"^(?:[:@](?P<source>[\S]+) )?(?P<command>[\S]+)(?: (?P<target>(?:[^:\s][\S]* ?)*))?(?: ?:(?P<msg>.*))?$")
     def __init__(self, **kwargs):
+        self.created = datetime.now()
         self.type=TYPE_UNKNOWN
         self.command = kwargs.get('command', "")
         self.source = kwargs.get('source', "")
@@ -33,28 +40,76 @@ class BaseEvent(object):
 Uses regex to determine event type, participants and messages.
         """
         if self.raw and self.type == TYPE_UNKNOWN:
-            print self.raw
-            msg_match = self.message_match.match(self.raw)
+            msg_match = self._parse(self.raw)
+            
             msg_data = msg_match.groupdict()
             self.command = msg_data.get('command')
             self.source = msg_data.get('source')
             self.target = msg_data.get('target')
             self.msg = msg_data.get('msg')
-        if self.command.lower() == "PING":
-            self.type = TYPE_PING
-        elif self.command.lower() == "PRIVMSG":
-            if self.msg.startswith("\x01ACTION"):
-                self.type = TYPE_ACTION
-            else:
-                self.type = TYPE_PRIVMSG
-        elif self.command.lower() == "NOTICE":
-            self.type = TYPE_NOTICE
-        elif self.command.lower() == "JOIN":
-            self.type = TYPE_JOIN
-        elif self.command.lower() == "PART":
-            self.type = TYPE_PART
-        elif self.command.lower() == "QUIT":
-            self.type = TYPE_QUIT
+                
+            if self.command.upper() == "PING":
+                self.type = TYPE_PING
+            elif self.command.upper() == "PRIVMSG":
+                if self.msg.startswith("\x01ACTION"):
+                    self.type = TYPE_ACTION
+                else:
+                    self.type = TYPE_PRIVMSG
+            elif self.command.upper() == "NOTICE":
+                self.type = TYPE_NOTICE
+            elif self.command.upper() == "JOIN":
+                self.type = TYPE_JOIN
+            elif self.command.upper() == "PART":
+                self.type = TYPE_PART
+            elif self.command.upper() == "NICK":
+                self.type = TYPE_NICK
+            elif self.command.upper() == "QUIT":
+                self.type = TYPE_QUIT
+                
+    def _parse(self,raw):
+        raw_parts = raw.split(':', 2)
+        
+        command = ""
+        source = ""
+        target = ""
+        msg = ""
+        
+        if raw.startswith(':'):
+            args = raw_parts[1].split()
+            source = args[0]
+            command = args[1]
+            target = " ".join(args[2:])
+            print len(raw_parts)
+            if len(raw_parts) == 3:
+                msg = raw_parts[2]
+        else:
+            command = raw_parts[0]
+            if len(raw_parts) == 3:
+                msg = raw_parts[2]
+                args = raw_parts[1].split()
+                source = args[0]
+                targets = " " .join(args[1:])
+            elif len(raw_parts) == 2:
+                msg = raw_parts[1]
+            
+        return {
+            'command': command,
+            'source': source,
+            'target': target,
+            'msg': msg
+        }
+            
+            
+                
+    def as_dict(self):
+        return {
+            'created': self.created.isoformat(),
+            'type': self.type,
+            'source': self.source,
+            'command': self.command,
+            'target': self.target,
+            'message': self.msg
+        }
 
 class Unknown(BaseEvent):
     def __init__(self, **kwargs):
@@ -74,6 +129,7 @@ class Join(BaseEvent):
     def __init__(self, **kwargs):
         BaseEvent.__init__(self)
         self.type = TYPE_JOIN
+        self.target = self.msg
         if kwargs.get('channels'):
             self.raw = "JOIN %s" % ",".join(kwargs.get('channels'))
         
@@ -100,7 +156,7 @@ class PrivMsg(BaseEvent):
 class Action(BaseEvent):
     def __init__(self, **kwargs):
         BaseEvent.__init__(self)
-        self.type = TYPE_ACTOIN
+        self.type = TYPE_ACTION
         if kwargs.get('target') and kwargs.get('msg'):
             self.raw = "PRIVMSG %s :\x01ACTION %s\x01" % (kwargs.get('target'), kwargs.get('msg'))
         

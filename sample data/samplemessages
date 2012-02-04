@@ -1,9 +1,7 @@
 :hybrid7.debian.local NOTICE AUTH :*** Looking up your hostname...
 :hybrid7.debian.local NOTICE AUTH :*** Checking Ident
 :hybrid7.debian.local NOTICE AUTH :*** No Ident response
-USER :hybrid7.debian.local NOTICE AUTH :*** Couldn't look up your hostname
-matt matt matt matt
-NICK matt
+:hybrid7.debian.local NOTICE AUTH :*** Couldn't look up your hostname
 :hybrid7.debian.local NOTICE matt :*** Spoofing your IP. congrats.
 :hybrid7.debian.local NOTICE matt :*** You are exempt from K/D/G lines. congrats.
 :hybrid7.debian.local NOTICE matt :*** You are exempt from user limits. congrats.
@@ -50,9 +48,7 @@ NICK matt
 :hybrid7.debian.local 372 matt :-                             -- Aurélien GÉRÔME <ag@roxor.cx>
 :hybrid7.debian.local 376 matt :End of /MOTD command.
 :matt!matt@i.love.debian.org MODE matt :+i
-/j #channel1
 :hybrid7.debian.local 421 matt /j :Unknown command
-join #channel1
 :matt!matt@i.love.debian.org JOIN :#channel1
 :hybrid7.debian.local 353 matt = #channel1 :matt @copperwaitem01
 :hybrid7.debian.local 366 matt #channel1 :End of /NAMES list.
