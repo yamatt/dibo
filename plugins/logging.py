@@ -12,21 +12,21 @@ LOG_FILE="%Y%m%%d.log"
 def match(msg_obj):
     if msg_obj.TYPE==events.TYPE_PRIVMSG:
         return True
-    elif msg_obj.TYPE==events.ACTION:
+    elif msg_obj.TYPE==events.TYPE_ACTION:
         return True
-    elif msg_obj.TYPE==events.JOIN:
+    elif msg_obj.TYPE==events.TYPE_JOIN:
         return True
-    elif msg_obj.TYPE==events.PART:
+    elif msg_obj.TYPE==events.TYPE_PART:
         return True
-    elif msg_obj.TYPE==events.NICK:
+    elif msg_obj.TYPE==events.TYPE_NICK:
         return True
-    elif msg_obj.TYPE==events.QUIT:
+    elif msg_obj.TYPE==events.TYPE_QUIT:
         return True
 
 def process(q, msg_obj):
     now = datetime.now()
-    log_file = now.strftime(self.LOG_FILE)
-    log_path = os.path.join(self.LOG_DIR, log_file)
+    log_file = now.strftime(LOG_FILE)
+    log_path = os.path.join(LOG_DIR, log_file)
     
     event_dict = msg_obj.as_dict()
     json_event = jsonwrite(event_dict)

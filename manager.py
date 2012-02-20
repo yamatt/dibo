@@ -13,13 +13,16 @@ class Manager(object):
         self.inputs = []
 
     def start(self):
-        self.irc_p = Process(target=Irc, args=(self.rxq, self.txq))
-        self.broker_p = Process(target=Broker, args=(self.rxq, self.txq))
+        broker = Broker(self.rxq, self.txq)
+        broker.find_plugins()
+        irc = Irc(self.rxq, self.txq)
+        self.irc_p = Process(target=irc.start)
+        self.broker_p = Process(target=broker.start)
         self.irc_p.start()
         self.broker_p.start()
         
         for input in settings.INPUTS:
-            input_path = path.join(settings.INPUT_DIR, "%s.py" % input)
+            input_path = path.join(settings.INPUTS_DIR, "%s.py" % input)
             if path.isfile(input_path):
                 module = load_source(input, input_path)
                 p = Process(target=module.input, args=(self.rxq,))

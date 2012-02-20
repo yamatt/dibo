@@ -53,3 +53,6 @@ class TestNick_handler(unittest.TestCase):
         msg_obj = self.txq.get()
         p.terminate()
         return msg_obj.raw
+    
+if __name__ == "__main__":
+    unittest.main()

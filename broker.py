@@ -13,13 +13,7 @@ Then listens to the queue and spawns processes based upon the match passing the 
         self.rxq = rxq
         self.txq = txq
         self.plugins = {}
-        self.find_plugins()
         self.processes=[]
-        
-        try:
-            self.start()
-        except KeyboardInterrupt:
-            pass
             
     def find_plugins(self):
         # core plugins (not optional)
@@ -62,17 +56,17 @@ Then listens to the queue and spawns processes based upon the match passing the 
                         p.start()
                         self.processes.append(p)
 
-    def broker_manage(type):
-        if type == events.TYPE_ADMIN_BROKER_RELOAD:
+    def broker_manage(self, type_enum):
+        if type_enum == events.TYPE_ADMIN_BROKER_RELOAD:
             self.plugins={}
             self.find_plugins()
-        elif type == events.TYPE_ADMIN_BROKER_FREE_MEMORY:
+        elif type_enum == events.TYPE_ADMIN_BROKER_FREE_MEMORY:
             new_processes = []
             for process in self.processes:
                 process.join(timeout=0)
                 if process.is_alive():
-                    new_process.append(process)
-        elif type == events.TYPE_ADMIN_BROKER_KILL_PROCESSES:
+                    new_processes.append(process)
+        elif type_enum == events.TYPE_ADMIN_BROKER_KILL_PROCESSES:
             for process in self.processes:
                 process.join(timeout=3)
                 if process.is_alive():

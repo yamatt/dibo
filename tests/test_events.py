@@ -26,8 +26,11 @@ class TestEvents(unittest.TestCase):
                     self.assertTrue(parsed['msg'])
             else:
                 if len(line_split) == 2:
-                  self.assertEquals(parsed['command'], line_split[0])
+                    self.assertEquals(parsed['command'], line_split[0])
                 elif len(line_split) == 3:
                     pass
             
             line = f.readline()
+
+if __name__ == "__main__":
+    unittest.main()

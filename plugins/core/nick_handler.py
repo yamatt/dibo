@@ -31,7 +31,7 @@ def process(q, msg_obj, rxq):
     if next_nick:
         nick_event = events.Nick(name=new_nick)
         q.put(nick_event)   
-    #TODO: crrent causes multiple nick reset attemps for each nick fail. following fixes it?
+    #TODO: current solution causes multiple nick reset attemps for each nick fail. following fixes it?
     if not current_nick == "*":
         sleep(NAME_DELAY) 
         q.put(normal_nick_event)

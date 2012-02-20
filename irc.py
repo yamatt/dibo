@@ -20,15 +20,6 @@ txq = transmit messages queue
         
         self.msg = ""
         
-        if settings.DEBUG:
-            asyncore.loop(timeout=0)
-        else:
-            try:
-                asyncore.loop(timeout=0)
-            except KeyboardInterrupt:
-                self.send("QUIT :Forced exit.\n")
-                self.close()
-        
     def handle_connect(self):
         """
 Create connect event
@@ -72,4 +63,13 @@ Gets items off queue.
                 print "out: " + msg_obj.raw
             self.send("%s\n" % msg_obj.raw)
 
+    def start(self):
+        if settings.DEBUG:
+            asyncore.loop(timeout=0)
+        else:
+            try:
+                asyncore.loop(timeout=0)
+            except KeyboardInterrupt:
+                self.send("QUIT :Forced exit.\n")
+                self.close()
 
